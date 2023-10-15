@@ -22,19 +22,20 @@ def app(request):
 def add(request):
 
     dataset = pd.read_csv("heart_failure\\heart_failure_clinical_records_dataset.csv")
-    dataset = dataset.drop(0)
+    dt = dataset.drop(0)
+    
+# Manually split the dataset into train and test    
+    ds = dt.iloc[:, [0, 4, 7, 8, 12]]
+    features = ds.iloc[:, [0, 1, 2, 3]]
+    target = ds.iloc[:, 4]
+    features_train = features.iloc[1:250]
+    target_train = target.iloc[1:250]
+    features_test = features.iloc[251:298]
+    target_test = target.iloc[251:298]
 
-#Split the dataset into train and test
-
-# Split the dataset into the features and the target
-    features = dataset.iloc[:, [0, 4, 7, 8]]
-
-    target = dataset.iloc[:, 12]
-# Create a logistic regression model
-    model = LogisticRegression(penalty="l2", C=0.01)
-
-# Fit the model to the data
-    model.fit(features, target)
+    from sklearn.ensemble import RandomForestClassifier
+    model= RandomForestClassifier()
+    model.fit(features_train, target_train)
     
     Name = request.GET['Name']
     Age = int(request.GET['Age'])
