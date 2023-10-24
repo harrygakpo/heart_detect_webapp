@@ -9,7 +9,6 @@ import pandas as pd
 import matplotlib.pyplot as plt 
 import plotly.express as px
 import warnings
-from sklearn.linear_model import LogisticRegression
 warnings.filterwarnings('ignore')
 
 
@@ -59,3 +58,6 @@ def add(request):
 
 def results(request):
     return render(request, 'heart_form\\heart_results_good.html')
+
+def FAQs(request):
+    return render(request, 'heart_form\\FAQs.html')
